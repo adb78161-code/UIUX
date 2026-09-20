@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>DesignForge — Soft UI Studio</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+
+<aside class="sidebar glass">
+  <div class="brand"><span class="brand-dot"></span>DesignForge</div>
+  <div class="tiny">UI / UX STUDIO</div>
+
+  <div class="section">Create</div>
+  <button onclick="addText()">＋ Text</button>
+  <button onclick="addCard()">＋ Card</button>
+  <button onclick="addButton()">＋ Button</button>
+  <button onclick="addShape()">＋ Shape</button>
+  <button onclick="addImage()">＋ Image</button>
+
+  <div class="section">Templates</div>
+  <button onclick="loadTemplate('dashboard')">Dashboard</button>
+  <button onclick="loadTemplate('mobile')">Mobile App</button>
+  <button onclick="loadTemplate('landing')">Landing Page</button>
+
+  <div class="section">Project</div>
+  <button onclick="saveDesign()">♡ Save</button>
+  <button onclick="loadDesign()">↻ Load</button>
+  <button onclick="clearDesign()">⌫ Clear</button>
+</aside>
+
+<main>
+  <header class="topbar glass">
+    <div>
+      <div class="project">Untitled project</div>
+      <div class="sub">Soft interface playground</div>
+    </div>
+    <div class="actions">
+      <button onclick="setDevice('mobile')">Mobile</button>
+      <button onclick="setDevice('desktop')">Desktop</button>
+      <button class="accent" onclick="togglePreview()">Preview</button>
+    </div>
+  </header>
+
+  <section class="workspace">
+    <div class="canvas" id="canvas">
+      <div class="hero element" style="left:40px;top:35px;width:calc(100% - 80px);height:210px">
+        <div class="mini-brand">● design studio</div>
+        <h1>Soft digital<br>experiences.</h1>
+        <p>Build calm, modern interfaces with depth, rounded surfaces and flowing shapes.</p>
+        <div class="hero-wave"></div>
+      </div>
+
+      <div class="stat element" style="left:40px;top:270px">
+        <span>Projects</span><strong>24</strong>
+      </div>
+      <div class="stat element" style="left:205px;top:270px">
+        <span>Designs</span><strong>86</strong>
+      </div>
+
+      <div class="panel element" style="left:40px;top:365px;width:calc(100% - 80px);height:220px">
+        <div class="panel-title">Recent designs <span>View all →</span></div>
+        <div class="design-row">
+          <div class="thumb mint"></div>
+          <div><b>Ocean Dashboard</b><small>Updated 2 min ago</small></div>
+          <span class="pill">Active</span>
+        </div>
+        <div class="design-row">
+          <div class="thumb peach"></div>
+          <div><b>Mobile Finance</b><small>Updated yesterday</small></div>
+          <span class="pill">Draft</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<aside class="inspector glass">
+  <h3>Design panel</h3>
+  <p class="hint">Select a layer to edit it.</p>
+
+  <div class="control">
+    <label>Canvas</label>
+    <select id="theme" onchange="setTheme(this.value)">
+      <option value="dream">Dream Pastel</option>
+      <option value="mint">Mint Glass</option>
+      <option value="peach">Peach Cloud</option>
+      <option value="night">Night Soft</option>
+    </select>
+  </div>
+
+  <div class="control">
+    <label>Accent</label>
+    <input id="accent" type="color" value="#78cfc2" onchange="setAccent(this.value)">
+  </div>
+
+  <div class="control">
+    <label>Corner radius</label>
+    <input id="radius" type="range" min="8" max="42" value="24" oninput="setRadius(this.value)">
+  </div>
+
+  <div class="control">
+    <label>Shadow depth</label>
+    <input id="shadow" type="range" min="4" max="40" value="18" oninput="setShadow(this.value)">
+  </div>
+
+  <div class="layers">
+    <div class="section">Layers</div>
+    <div id="layerList"></div>
+  </div>
+</aside>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
