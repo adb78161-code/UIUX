@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>DesignForge — Create Without Limits</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="nav">
+  <a class="logo" href="#"><span>◈</span> DesignForge</a>
+  <nav>
+    <a href="#home">Home</a><a href="#features">Features</a><a href="#templates">Templates</a><a href="#editor">Editor</a>
+  </nav>
+  <div class="nav-right"><span>EN⌄</span><button class="search">⌕</button><button class="menu">☰</button></div>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="hero-copy">
+    <div class="users"><div class="avatars"><i></i><i></i><i></i></div><span>+10,000 designers are creating with DesignForge</span></div>
+    <h1>Design Your <em>Ideas</em><br>The Smart Way</h1>
+    <p>Turn your ideas into beautiful interfaces, prototypes and digital experiences — without complicated design software.</p>
+    <a class="cta" href="#editor"><span>✦</span> START DESIGNING</a>
+  </div>
+
+  <div class="hero-stage">
+    <div class="glow g1"></div><div class="glow g2"></div>
+    <div class="editor-card">
+      <div class="editor-top"><span>DesignForge</span><small>● Live preview</small></div>
+      <div class="editor-body">
+        <div class="mini-side"><b>Layers</b><span>▣ Header</span><span>▣ Hero</span><span>▣ Cards</span><span>▣ Button</span></div>
+        <div class="mini-canvas">
+          <div class="mini-header">Design your future <button>Get Started</button></div>
+          <div class="mini-wave"></div>
+          <div class="mini-cards"><div></div><div></div><div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="floating-chip chip1">✦ Beautiful UI</div>
+    <div class="floating-chip chip2">◉ Prototype</div>
+  </div>
+
+  <div class="steps">
+    <div><b>01</b><span>CREATE</span><small>Start from an idea</small></div>
+    <div><b>02</b><span>DESIGN</span><small>Shape every detail</small></div>
+    <div><b>03</b><span>PROTOTYPE</span><small>Bring it to life</small></div>
+    <div><b>04</b><span>EXPORT</span><small>Share your work</small></div>
+  </div>
+</section>
+
+<section class="intro" id="features">
+  <div><span class="eyebrow">THE CREATIVE SPACE</span><h2>Everything you need<br>to <em>make ideas real.</em></h2></div>
+  <p>A calm, visual workspace built around the way designers actually think. Create screens, experiment with layouts and refine every detail.</p>
+</section>
+
+<section class="feature-grid">
+  <article class="feature large"><span class="number">01</span><h3>Visual Canvas</h3><p>Move, arrange and shape interface elements freely on an infinite-feeling workspace.</p><div class="demo-canvas"><div class="demo-pill"></div><div class="demo-box"></div><div class="demo-box small"></div></div></article>
+  <article class="feature"><span class="number">02</span><h3>Soft Components</h3><p>Build elegant cards, buttons, shapes and responsive layouts.</p><div class="orb"></div></article>
+  <article class="feature"><span class="number">03</span><h3>Live Preview</h3><p>See your interface as your users will experience it.</p><div class="phone"><div></div><div></div><div></div></div></article>
+</section>
+
+<section class="templates" id="templates">
+  <span class="eyebrow">STARTING POINTS</span><h2>Choose a <em>direction.</em></h2>
+  <div class="template-row">
+    <button onclick="openEditor('Dashboard')"><span class="t t1"></span>Dashboard</button>
+    <button onclick="openEditor('Mobile App')"><span class="t t2"></span>Mobile App</button>
+    <button onclick="openEditor('Landing Page')"><span class="t t3"></span>Landing Page</button>
+  </div>
+</section>
+
+<section class="editor-section" id="editor">
+  <div class="editor-heading"><div><span class="eyebrow">DESIGNFORGE EDITOR</span><h2>Your canvas.<br><em>Your rules.</em></h2></div><button onclick="enterEditor()">OPEN EDITOR ↗</button></div>
+</section>
+</main>
+
+<footer><span>◈ DesignForge</span><small>Made for people who turn ideas into interfaces.</small></footer>
+
+<div class="modal" id="modal">
+  <div class="modal-inner">
+    <button class="close" onclick="closeEditor()">×</button>
+    <div class="modal-top"><b id="templateName">DesignForge Editor</b><span>● Ready</span></div>
+    <div class="workbench">
+      <aside><b>Insert</b><button onclick="addEl('text')">T Text</button><button onclick="addEl('card')">▣ Card</button><button onclick="addEl('button')">◉ Button</button><button onclick="addEl('shape')">◇ Shape</button><b>Canvas</b><button onclick="clearBoard()">⌫ Clear</button></aside>
+      <div class="board-wrap"><div class="board" id="board"><div class="board-title element">Your beautiful idea.</div><div class="board-sub element">Start designing something unforgettable.</div><div class="board-button element">Explore</div><div class="board-shape element"></div></div></div>
+      <aside class="properties"><b>Properties</b><label>Accent<input type="color" id="color" value="#78cfc2" onchange="changeColor(this.value)"></label><label>Radius<input type="range" min="5" max="40" value="22" oninput="changeRadius(this.value)"></label><button onclick="saveBoard()">SAVE DESIGN</button></aside>
+    </div>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
