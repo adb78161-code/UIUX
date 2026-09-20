@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DesignForge — UI/UX Design Studio</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0d0f14;--panel:#151820;--panel2:#1b1f29;--line:#292e3a;--text:#f5f7fb;--muted:#8e96a8;--accent:#7c5cff}
+body{font-family:Inter,system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);height:100vh;overflow:hidden}
+button,input,select{font:inherit}
+.app{display:grid;grid-template-columns:220px 1fr 270px;height:100vh}
+.sidebar,.inspector{background:var(--panel);border-color:var(--line)}
+.sidebar{border-right:1px solid var(--line);padding:18px 14px}
+.logo{font-size:20px;font-weight:800;margin:3px 8px 24px}.logo span{color:var(--accent)}
+.label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1.4px;margin:18px 8px 9px}
+.tool{width:100%;border:1px solid transparent;background:transparent;color:#dfe3ec;text-align:left;padding:10px 11px;border-radius:8px;cursor:pointer;margin:2px 0}
+.tool:hover{background:var(--panel2)}.tool.active{background:#29223f;border-color:#493b72;color:#fff}
+.center{min-width:0;display:flex;flex-direction:column}
+.topbar{height:58px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#11141a}
+.project{font-weight:700}.top-actions{display:flex;gap:8px}.btn{border:1px solid var(--line);background:var(--panel2);color:#fff;padding:8px 12px;border-radius:8px;cursor:pointer}.btn:hover{filter:brightness(1.15)}.primary{background:var(--accent);border-color:var(--accent)}
+.canvas-wrap{position:relative;flex:1;overflow:auto;background-color:#0b0d12;background-image:radial-gradient(#252a35 1px,transparent 1px);background-size:20px 20px;padding:70px}
+.canvas{position:relative;width:390px;height:844px;background:#fff;color:#111;margin:auto;box-shadow:0 25px 80px #0008;border-radius:18px;overflow:hidden}
+.canvas.desktop{width:1000px;height:650px}
+.element{position:absolute;min-width:20px;min-height:20px;cursor:move;user-select:none}
+.element.selected{outline:2px solid var(--accent);outline-offset:3px}
+.text{font-size:26px;font-weight:750;color:#151515}
+.box{background:#eee;border-radius:12px}
+.button-el{background:var(--accent);color:#fff;padding:12px 20px;border-radius:10px;font-weight:700}
+.card{width:260px;height:130px;background:#f4f5f7;border-radius:16px;padding:18px;color:#17191e;box-shadow:0 8px 25px #0001}
+.image{width:230px;height:150px;border-radius:14px;background:linear-gradient(135deg,#7c5cff,#ff6da8 55%,#39d8ff)}
+.inspector{border-left:1px solid var(--line);padding:18px;overflow:auto}
+.inspector h3{font-size:15px;margin-bottom:18px}.empty{color:var(--muted);font-size:13px;line-height:1.6}
+.group{border-top:1px solid var(--line);padding:15px 0}.group:first-of-type{border-top:0}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}.field label{display:block;color:var(--muted);font-size:11px;margin-bottom:5px}.field input,.field select{width:100%;background:#10131a;border:1px solid var(--line);color:#fff;padding:8px;border-radius:7px}
+.full{grid-column:1/-1}.danger{width:100%;background:#3a1d23;border-color:#66313b;color:#ffb6bd}
+.zoom{position:fixed;left:235px;bottom:18px;background:#171a21;border:1px solid var(--line);padding:7px;border-radius:8px;display:flex;gap:6px;align-items:center}
+.zoom button{background:none;color:#fff;border:0;padding:3px 8px;cursor:pointer}
+@media(max-width:850px){.app{grid-template-columns:170px 1fr}.inspector{display:none}.canvas-wrap{padding:35px}.zoom{left:180px}}
+@media(max-width:560px){.sidebar{display:none}.app{display:block}.topbar{height:54px}.canvas-wrap{padding:25px 10px}.zoom{left:10px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="logo">Design<span>Forge</span></div>
+  <div class="label">Elements</div>
+  <button class="tool" onclick="add('text')">T &nbsp; Text</button>
+  <button class="tool" onclick="add('button')">▣ &nbsp; Button</button>
+  <button class="tool" onclick="add('card')">▤ &nbsp; Card</button>
+  <button class="tool" onclick="add('image')">▧ &nbsp; Image</button>
+  <button class="tool" onclick="add('box')">□ &nbsp; Shape</button>
+  <div class="label">Canvas</div>
+  <button class="tool" onclick="mobile()">📱 Mobile 390 × 844</button>
+  <button class="tool" onclick="desktop()">🖥 Desktop 1000 × 650</button>
+  <div class="label">Project</div>
+  <button class="tool" onclick="save()">💾 Save Design</button>
+  <button class="tool" onclick="load()">↻ Load Design</button>
+  <button class="tool" onclick="clearAll()">⌫ Clear Canvas</button>
+</aside>
+
+<main class="center">
+<header class="topbar">
+  <div class="project">My UI/UX Project</div>
+  <div class="top-actions">
+    <button class="btn" onclick="undo()">Undo</button>
+    <button class="btn" onclick="exportJSON()">Export</button>
+    <button class="btn primary" onclick="preview()">Preview</button>
+  </div>
+</header>
+<div class="canvas-wrap" id="wrap">
+  <div class="canvas" id="canvas"></div>
+</div>
+</main>
+
+<aside class="inspector">
+<h3>Design Properties</h3>
+<div id="inspector"><div class="empty">Select an element on the canvas to edit its position, size, color and text.</div></div>
+</aside>
+</div>
+
+<div class="zoom">
+<button onclick="changeZoom(-.1)">−</button><span id="zoomLabel">100%</span><button onclick="changeZoom(.1)">+</button>
+</div>
+
+<script>
+const canvas=document.getElementById("canvas"), inspector=document.getElementById("inspector"), wrap=document.getElementById("wrap");
+let selected=null, history=[], z=1, count=0;
+
+function snapshot(){history.push(canvas.innerHTML);if(history.length>30)history.shift()}
+function add(type){
+ snapshot(); count++;
+ const e=document.createElement("div"); e.className="element "+type; e.dataset.id=count;
+ e.style.left=(35+count*12)+"px"; e.style.top=(35+count*12)+"px";
+ if(type==="text") e.textContent="Your Heading";
+ if(type==="button") e.textContent="Get Started";
+ if(type==="card") e.innerHTML="<b>Card title</b><br><br><span style='font-size:13px;color:#777'>Add your content here</span>";
+ if(type==="box") {e.style.width="180px";e.style.height="100px"}
+ e.addEventListener("mousedown",dragStart); e.addEventListener("touchstart",dragStart,{passive:false});
+ canvas.appendChild(e); select(e);
+}
+function select(e){if(selected)selected.classList.remove("selected");selected=e;e.classList.add("selected");renderInspector()}
+function renderInspector(){
+ if(!selected){inspector.innerHTML='<div class="empty">Select an element on the canvas to edit it.</div>';return}
+ const cs=getComputedStyle(selected);
+ inspector.innerHTML=`
+ <div class="group">
+  <div class="row">
+   <div class="field"><label>X</label><input type="number" value="${parseInt(selected.style.left)||0}" oninput="setProp('left',this.value)"></div>
+   <div class="field"><label>Y</label><input type="number" value="${parseInt(selected.style.top)||0}" oninput="setProp('top',this.value)"></div>
+   <div class="field"><label>Width</label><input type="number" value="${selected.offsetWidth}" oninput="setProp('width',this.value)"></div>
+   <div class="field"><label>Height</label><input type="number" value="${selected.offsetHeight}" oninput="setProp('height',this.value)"></div>
+  </div>
+ </div>
+ <div class="group">
+  <div class="row">
+   <div class="field"><label>Background</label><input type="color" value="${rgbHex(cs.backgroundColor)}" onchange="selected.style.background=this.value"></div>
+   <div class="field"><label>Text color</label><input type="color" value="${rgbHex(cs.color)}" onchange="selected.style.color=this.value"></div>
+   <div class="field full"><label>Border radius</label><input type="number" value="${parseInt(cs.borderRadius)||0}" oninput="selected.style.borderRadius=this.value+'px'"></div>
+  </div>
+ </div>
+ <div class="group">
+  <div class="field"><label>Text / content</label><input value="${escapeAttr(selected.innerText)}" oninput="selected.innerText=this.value"></div>
+ </div>
+ <div class="group">
+  <button class="btn danger" onclick="removeSelected()">Delete Element</button>
+ </div>`;
+}
+function rgbHex(rgb){const m=rgb.match(/\d+/g);if(!m)return"#ffffff";return"#"+m.slice(0,3).map(x=>(+x).toString(16).padStart(2,"0")).join("")}
+function escapeAttr(s){return s.replaceAll("&","&amp;").replaceAll('"',"&quot;").replaceAll("<","&lt;").replaceAll(">","&gt;")}
+function setProp(p,v){selected.style[p]=v+"px"}
+function removeSelected(){if(!selected)return;snapshot();selected.remove();selected=null;renderInspector()}
+function dragStart(ev){
+ ev.preventDefault();select(ev.currentTarget);const e=selected;const point=ev.touches?ev.touches[0]:ev;
+ const r=e.getBoundingClientRect(), cr=canvas.getBoundingClientRect();
+ const ox=point.clientX-r.left, oy=point.clientY-r.top;
+ function move(x){const p=x.touches?x.touches[0]:x;e.style.left=Math.max(0,p.clientX-cr.left-ox)+"px";e.style.top=Math.max(0,p.clientY-cr.top-oy)+"px";renderInspector()}
+ function up(){document.removeEventListener("mousemove",move);document.removeEventListener("mouseup",up);document.removeEventListener("touchmove",move);document.removeEventListener("touchend",up)}
+ document.addEventListener("mousemove",move);document.addEventListener("mouseup",up);document.addEventListener("touchmove",move,{passive:false});document.addEventListener("touchend",up);
+}
+function undo(){if(!history.length)return;canvas.innerHTML=history.pop();selected=null;canvas.querySelectorAll(".element").forEach(e=>{e.addEventListener("mousedown",dragStart);e.addEventListener("touchstart",dragStart,{passive:false})});renderInspector()}
+function save(){localStorage.setItem("designForge",canvas.innerHTML);alert("Design saved in this browser.")}
+function load(){const x=localStorage.getItem("designForge");if(!x)return;canvas.innerHTML=x;selected=null;canvas.querySelectorAll(".element").forEach(e=>{e.addEventListener("mousedown",dragStart);e.addEventListener("touchstart",dragStart,{passive:false})});renderInspector()}
+function clearAll(){if(confirm("Clear the entire design?")){snapshot();canvas.innerHTML="";selected=null;renderInspector()}}
+function mobile(){canvas.classList.remove("desktop")}
+function desktop(){canvas.classList.add("desktop")}
+function changeZoom(v){z=Math.min(1.6,Math.max(.5,z+v));canvas.style.transform=`scale(${z})`;canvas.style.transformOrigin="top center";document.getElementById("zoomLabel").textContent=Math.round(z*100)+"%"}
+function exportJSON(){
+ const blob=new Blob([JSON.stringify({html:canvas.innerHTML,width:canvas.offsetWidth,height:canvas.offsetHeight},null,2)],{type:"application/json"});
+ const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="designforge-project.json";a.click()
+}
+function preview(){
+ document.body.classList.toggle("previewing");
+ if(document.body.classList.contains("previewing")){
+   document.querySelector(".sidebar").style.display="none";document.querySelector(".inspector").style.display="none";
+   document.querySelector(".topbar").style.display="none";wrap.style.padding="0";canvas.style.borderRadius="0";
+ }else{location.reload()}
+}
+canvas.addEventListener("mousedown",e=>{if(e.target===canvas){if(selected)selected.classList.remove("selected");selected=null;renderInspector()}})
+</script>
+</body>
+</html>
