@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>DesignForge — Full UI/UX Canvas</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+
+<header class="topbar">
+  <div class="brand"><span>◈</span> DesignForge</div>
+  <div class="file-name" id="fileName">Untitled Design</div>
+  <div class="top-actions">
+    <button id="undoBtn" title="Undo">↶</button>
+    <button id="redoBtn" title="Redo">↷</button>
+    <button id="saveBtn">Save</button>
+    <button class="primary" id="exportBtn">Export</button>
+  </div>
+</header>
+
+<div class="editor">
+
+<aside class="leftbar">
+  <button class="tool active" data-tool="select" title="Select">↖<small>Select</small></button>
+  <button class="tool" data-tool="frame" title="Frame">▣<small>Frame</small></button>
+  <button class="tool" data-tool="text" title="Text">T<small>Text</small></button>
+  <button class="tool" data-tool="rect" title="Rectangle">□<small>Shape</small></button>
+  <button class="tool" data-tool="ellipse" title="Ellipse">○<small>Circle</small></button>
+  <button class="tool" data-tool="button" title="Button">▰<small>Button</small></button>
+  <button class="tool" data-tool="image" title="Image">▧<small>Image</small></button>
+  <input id="imageInput" type="file" accept="image/*" hidden>
+  <div class="left-sep"></div>
+  <button class="tool" id="zoomOut">−<small>Zoom</small></button>
+  <button class="tool" id="zoomIn">+<small>Zoom</small></button>
+  <button class="tool" id="fitBtn">⌗<small>Fit</small></button>
+</aside>
+
+<aside class="layers">
+  <div class="panel-title">Layers <button id="addFrame">＋</button></div>
+  <div class="layer-hint">Double-click a text layer to edit it.</div>
+  <div id="layersList"></div>
+</aside>
+
+<main class="stage" id="stage">
+  <div class="ruler-x"></div><div class="ruler-y"></div>
+  <div class="infinite" id="infinite">
+    <div class="artboard" id="artboard"></div>
+  </div>
+  <div class="bottom-bar">
+    <span id="selectionInfo">Nothing selected</span>
+    <span id="zoomText">100%</span>
+  </div>
+</main>
+
+<aside class="properties">
+  <div class="panel-title">Design</div>
+  <div id="emptyProps" class="empty">Select an object to edit its properties.</div>
+  <div id="props" hidden>
+    <div class="prop-section">
+      <div class="section-name">Position & Size</div>
+      <div class="grid2">
+        <label>X<input id="px" type="number"></label>
+        <label>Y<input id="py" type="number"></label>
+        <label>W<input id="pw" type="number"></label>
+        <label>H<input id="ph" type="number"></label>
+      </div>
+    </div>
+    <div class="prop-section">
+      <div class="section-name">Appearance</div>
+      <label>Fill<input id="fill" type="color"></label>
+      <label>Opacity<input id="opacity" type="range" min="0" max="100"></label>
+      <label>Radius<input id="radius" type="range" min="0" max="100"></label>
+    </div>
+    <div class="prop-section" id="textProps">
+      <div class="section-name">Typography</div>
+      <label>Text<input id="textValue" type="text"></label>
+      <div class="grid2">
+        <label>Size<input id="fontSize" type="number"></label>
+        <label>Weight<select id="fontWeight"><option>400</option><option>500</option><option>600</option><option>700</option><option>800</option></select></label>
+      </div>
+      <label>Text color<input id="textColor" type="color"></label>
+    </div>
+    <div class="prop-section actions-section">
+      <button id="duplicateBtn">Duplicate</button>
+      <button id="frontBtn">Bring to front</button>
+      <button id="backBtn">Send to back</button>
+      <button class="danger" id="deleteBtn">Delete</button>
+    </div>
+  </div>
+</aside>
+
+</div>
+</div>
+
+<div class="modal" id="exportModal">
+  <div class="modal-card">
+    <button class="close" id="closeExport">×</button>
+    <h2>Export design</h2>
+    <p>Choose how you want to save your canvas.</p>
+    <button id="exportJson">Download project JSON</button>
+    <button id="exportHtml">Download standalone HTML</button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
