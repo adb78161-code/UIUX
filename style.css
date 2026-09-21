@@ -1,6 +1,84 @@
-body { margin:0; font-family:sans-serif; display:flex; background:#1e1e2f; color:white; }
-.sidebar { width:200px; background:#2c2c3e; padding:10px; }
-.topbar { position:fixed; left:200px; right:0; top:0; background:#444; padding:10px; }
-#canvasWrapper { margin-left:200px; margin-top:50px; width:100%; height:90vh; overflow:hidden; }
-#canvas { width:2000px; height:1200px; background:white; position:relative; transform-origin: top left; }
-.obj { position:absolute; border:1px solid black; cursor:move; }
+body {
+  margin: 0;
+  font-family: sans-serif;
+  overflow: hidden;
+}
+
+/* BACKGROUND */
+.bg {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: url('background.jpg') center/cover no-repeat;
+  filter: blur(8px);
+  z-index: -1;
+}
+
+/* GLASS */
+.glass {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* SIDEBAR */
+.sidebar {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* MAIN */
+.main {
+  position: absolute;
+  left: 100px;
+  top: 40px;
+  width: 60%;
+  height: 80%;
+  padding: 10px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* CANVAS */
+#canvas {
+  margin-top: 10px;
+  width: 100%;
+  height: 90%;
+  background: rgba(255,255,255,0.2);
+  border-radius: 15px;
+  position: relative;
+}
+
+/* OBJECT */
+.obj {
+  position: absolute;
+  cursor: move;
+}
+
+/* RIGHT PANEL */
+.right {
+  position: absolute;
+  right: 20px;
+  top: 60px;
+  width: 200px;
+  padding: 10px;
+}
+
+/* DOCK */
+.dock {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px;
+}
