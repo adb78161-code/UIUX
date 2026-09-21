@@ -1,0 +1,6 @@
+body { margin:0; font-family:sans-serif; display:flex; background:#1e1e2f; color:white; }
+.sidebar { width:200px; background:#2c2c3e; padding:10px; }
+.topbar { position:fixed; left:200px; right:0; top:0; background:#444; padding:10px; }
+#canvasWrapper { margin-left:200px; margin-top:50px; width:100%; height:90vh; overflow:hidden; }
+#canvas { width:2000px; height:1200px; background:white; position:relative; transform-origin: top left; }
+.obj { position:absolute; border:1px solid black; cursor:move; }
