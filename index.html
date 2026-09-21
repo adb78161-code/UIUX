@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>DesignForge V5 — UI/UX Studio</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app" id="app">
+  <div class="reference-bg" aria-hidden="true"></div>
+
+  <!-- Transparent functional hit areas matching the reference UI -->
+  <header class="top-hit">
+    <button class="hit logo-hit" id="homeBtn" aria-label="Home"></button>
+    <button class="hit search-hit" id="searchBtn" aria-label="Search"></button>
+    <button class="hit undo-hit" id="undoBtn" aria-label="Undo"></button>
+    <button class="hit redo-hit" id="redoBtn" aria-label="Redo"></button>
+    <button class="hit grid-hit" id="commandBtn" aria-label="Command menu"></button>
+    <button class="hit zoom-hit" id="zoomBtn" aria-label="Zoom"></button>
+    <button class="hit preview-hit" id="previewBtn" aria-label="Preview"></button>
+    <button class="hit theme-hit" id="themeBtn" aria-label="Theme"></button>
+    <button class="hit export-hit" id="exportBtn" aria-label="Export"></button>
+    <button class="hit account-hit" id="settingsBtn" aria-label="Settings"></button>
+  </header>
+
+  <aside class="left-hotspots" aria-label="Main navigation">
+    <button class="hit home-nav" data-panel="home"></button>
+    <button class="hit templates-nav" data-panel="templates"></button>
+    <button class="hit elements-nav" data-panel="elements"></button>
+    <button class="hit text-nav" data-panel="text"></button>
+    <button class="hit images-nav" data-panel="images"></button>
+    <button class="hit uploads-nav" data-panel="uploads"></button>
+    <button class="hit layers-nav" data-panel="layers"></button>
+    <button class="hit settings-nav" data-panel="settings"></button>
+  </aside>
+
+  <!-- Real design canvas sits exactly over the central canvas area -->
+  <main class="design-area" id="designArea">
+    <div class="canvas-shell" id="canvasShell">
+      <div class="canvas" id="canvas" tabindex="0"></div>
+    </div>
+  </main>
+
+  <!-- Functional inspector overlay -->
+  <aside class="inspector-overlay" id="inspector" hidden>
+    <div class="inspector-tabs">
+      <button class="tab active" data-inspect="design">Design</button>
+      <button class="tab" data-inspect="prototype">Prototype</button>
+      <button class="tab" data-inspect="comments">Comments</button>
+    </div>
+    <div id="inspectorBody"></div>
+  </aside>
+
+  <!-- Bottom controls -->
+  <div class="bottom-toolbar">
+    <button class="tool active" data-tool="select"><span>↖</span><small>Select</small></button>
+    <button class="tool" data-tool="move"><span>✣</span><small>Move</small></button>
+    <button class="tool" data-tool="text"><span>T</span><small>Text</small></button>
+    <button class="tool" data-tool="shape"><span>◯</span><small>Shape</small></button>
+    <button class="tool" data-tool="image"><span>▧</span><small>Image</small></button>
+    <button class="tool" data-tool="frame"><span>□</span><small>Frame</small></button>
+    <button class="tool" id="moreTool"><span>•••</span><small>More</small></button>
+  </div>
+
+  <div class="grid-control">
+    <span>▦</span><span>Grid</span>
+    <label class="switch"><input type="checkbox" id="gridToggle" checked><i></i></label>
+    <select id="gridSize"><option>8px</option><option selected>16px</option><option>24px</option><option>32px</option></select>
+  </div>
+
+  <div class="device-control">
+    <button class="active" data-device="desktop">▱</button>
+    <button data-device="tablet">▯</button>
+    <button data-device="mobile">▯</button>
+  </div>
+
+  <!-- Sliding panel -->
+  <section class="side-panel" id="sidePanel">
+    <div class="side-panel-head"><b id="sideTitle">Home</b><button id="closeSide">×</button></div>
+    <div id="sideBody"></div>
+  </section>
+
+  <div class="modal" id="modal">
+    <div class="modal-card" id="modalCard"></div>
+  </div>
+
+  <input type="file" id="imageInput" accept="image/*" multiple hidden>
+  <div class="toast" id="toast"></div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
