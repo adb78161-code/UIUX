@@ -2,30 +2,48 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>DesignForge V8 PRO</title>
+<title>DesignForge</title>
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div class="sidebar">
-  <h2>DesignForge</h2>
-  <button onclick="addBox()">Shape</button>
-  <button onclick="addText()">Text</button>
+<div class="bg"></div>
+
+<!-- LEFT SIDEBAR -->
+<div class="sidebar glass">
+  <button onclick="addText()">T</button>
+  <button onclick="addBox()">⬛</button>
   <input type="file" id="imgUpload">
 </div>
 
-<div class="topbar">
-  <button onclick="undo()">Undo</button>
-  <button onclick="redo()">Redo</button>
-  <button onclick="zoomIn()">Zoom +</button>
-  <button onclick="zoomOut()">Zoom -</button>
-  <button onclick="exportPNG()">Export</button>
-</div>
+<!-- MAIN -->
+<div class="main glass">
+  <div class="topbar">
+    <span>DesignForge</span>
+    <button onclick="exportHTML()">Export</button>
+  </div>
 
-<div id="canvasWrapper">
   <div id="canvas"></div>
 </div>
 
+<!-- RIGHT PANEL -->
+<div class="right glass">
+  <h3>Properties</h3>
+
+  X: <input id="posX"><br>
+  Y: <input id="posY"><br>
+  W: <input id="width"><br>
+  H: <input id="height"><br>
+
+  Color: <input type="color" id="color"><br>
+</div>
+
+<!-- BOTTOM DOCK -->
+<div class="dock glass">
+  <button onclick="deleteEl()">Delete</button>
+</div>
+
 <script src="app.js"></script>
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script></body>
+</body>
 </html>
