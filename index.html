@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101c2c">
+<title>DesignForge V8 — UI/UX Studio</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+<header class="topbar glass">
+  <button id="brand" class="brand"><span class="logo">◢</span><b>DesignForge</b><small>V8</small></button>
+  <div class="project"><span>▱</span><input id="projectName" value="Untitled Project"></div>
+  <div class="toptools">
+    <button id="undo" title="Undo">↶</button><button id="redo" title="Redo">↷</button>
+    <button id="zoomMinus">−</button><span id="zoomLabel">100%</span><button id="zoomPlus">＋</button>
+    <button id="preview">▷</button><button id="theme">☾</button>
+    <button id="export" class="export">⇧ Export</button>
+    <button id="help">?</button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar glass" id="sidebar">
+    <button class="nav active" data-panel="home"><i>⌂</i><span>Home</span></button>
+    <button class="nav" data-panel="templates"><i>▦</i><span>Templates</span></button>
+    <button class="nav" data-panel="elements"><i>◆</i><span>Elements</span></button>
+    <button class="nav" data-panel="text"><i>T</i><span>Text</span></button>
+    <button class="nav" data-panel="images"><i>▧</i><span>Images</span></button>
+    <button class="nav" data-panel="layers"><i>▤</i><span>Layers</span></button>
+    <button class="nav" data-panel="assets"><i>☁</i><span>Assets</span></button>
+    <button class="nav" data-panel="settings"><i>⚙</i><span>Settings</span></button>
+  </aside>
+
+  <main class="main">
+    <div class="canvasbar glass">
+      <div class="bar-left"><button id="newCanvas">＋ New</button><button id="canvasPreset">Website ▾</button></div>
+      <div class="search"><span>⌕</span><input id="search" placeholder="Search tools, layers, components…"></div>
+      <div class="bar-right"><button id="gridBtn">▦</button><button id="zoomFit">Fit</button></div>
+    </div>
+    <div class="stage" id="stage">
+      <div id="canvas" class="canvas" tabindex="0">
+        <div class="empty" id="empty"><div class="emptyIcon">＋</div><b>Start Designing</b><span>Use the sidebar or bottom toolbar to build your interface.</span></div>
+      </div>
+    </div>
+    <div class="bottom glass">
+      <button class="tool active" data-tool="select">↖<small>Select</small></button>
+      <button class="tool" data-tool="text">T<small>Text</small></button>
+      <button class="tool" data-tool="shape">◇<small>Shape</small></button>
+      <button class="tool" data-tool="card">▣<small>Card</small></button>
+      <button class="tool" data-tool="button">▰<small>Button</small></button>
+      <button class="tool" data-tool="image">▧<small>Image</small></button>
+      <button class="tool" data-tool="frame">□<small>Frame</small></button>
+      <button class="tool" data-tool="more">•••<small>More</small></button>
+    </div>
+  </main>
+
+  <aside class="inspector glass" id="inspector">
+    <div class="tabs"><button class="tab active" data-tab="design">Design</button><button class="tab" data-tab="prototype">Prototype</button><button class="tab" data-tab="comments">Comments</button></div>
+    <div id="inspectorBody"></div>
+  </aside>
+</div>
+
+<div class="floating left-float glass"><span>⌗</span> Grid <input id="gridToggle" type="checkbox" checked><select id="gridSize"><option>8</option><option selected>16</option><option>24</option><option>32</option></select></div>
+<div class="floating right-float glass"><button data-device="desktop" class="active">▣</button><button data-device="tablet">▯</button><button data-device="mobile">▥</button></div>
+
+<div id="panel" class="panel glass hidden"><div class="panelHead"><b id="panelTitle">Tools</b><button id="closePanel">×</button></div><div id="panelBody"></div></div>
+<div id="modalBack" class="modalBack hidden"><div id="modal" class="modal glass"></div></div>
+<input id="fileInput" type="file" accept="image/*" hidden>
+<div id="toast" class="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>
